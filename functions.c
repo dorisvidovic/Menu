@@ -1,38 +1,77 @@
-#include "header.h"
-
-// Function to display the drinks in a category
-void displayCategory(DrinkCategory category) {
-    int drinkCount = 0;
-
-    printf("%s Menu:\n", category.name);
-
-    for (int i = 0; i < category.numDrinks; i++) {
-        Drink drink = category.drinks[i];
-        printf("%d. %s - %s ($%.2f)\n", i + 1, drink.name, drink.description, drink.price);
-        drinkCount++;
-    }
-
-    printf("Total drinks in category: %d\n\n", drinkCount);
-}
-
-
-// Function to display the main menu
-void displayMenu(DrinkCategory menu[], int numDrinkCategories) {
-    printf("Welcome to Name of the Cafe!\n");
-    printf("Menu:\n");
-
-    for (int i = 0; i < numDrinkCategories; i++) {
-        printf("%d. %s\n", i + 1, menu[i].name);
-    }
-
-    printf("Enter the number of your choice (0 to exit): ");
-}
-
-// Function to calculate the total cost of the order
-float getTotal(Drink order[], int orderSize) {
-    float total = 0;
-    for (int i = 0; i < orderSize; i++) {
-        total += order[i].price;
-    }
-    return total;
-}
+#define _CRT_SECURE_NO_WARNINGS 
+#include <stdio.h> 
+#include <stdlib.h> 
+#include <string.h> 
+  
+#define MAX_USERS 10 
+#define MAX_ARTICLES 100 
+  
+typedef enum { 
+    ADMIN, 
+    MODERATOR, 
+    GUEST 
+} Authority; 
+  
+typedef struct { 
+    char username[50]; 
+    char password[50]; 
+    Authority authority; 
+} User; 
+  
+typedef struct { 
+    char title[100]; 
+    char content[500]; 
+} Article; 
+  
+User users[MAX_USERS]; 
+int numUsers = 0; 
+  
+Article articles[MAX_ARTICLES]; 
+int numArticles = 0; 
+  
+void addUser(const char* username, const char* password, Authority authority) { 
+    if (numUsers >= MAX_USERS) { 
+        printf("Maximum number of users reached.\n"); 
+        return; 
+    } 
+  
+    User newUser; 
+    strcpy_s(newUser.username, sizeof(newUser.username), username); 
+    strcpy_s(newUser.password, sizeof(newUser.password), password); 
+    newUser.authority = authority; 
+  
+    users[numUsers] = newUser; 
+    numUsers++; 
+  
+    printf("User added successfully.\n"); 
+} 
+  
+User* loginUser(const char* username, const char* password) { 
+    for (int i = 0; i < numUsers; i++) { 
+        if (strcmp(users[i].username, username) == 0 && strcmp(users[i].password, password) == 0) { 
+            return &users[i]; 
+        } 
+    } 
+    return NULL; // User not found or incorrect credentials 
+} 
+  
+void addArticle(const char* title, const char* content, User* user) { 
+    if (user->authority == GUEST) { 
+        printf("Guest users are not allowed to add articles.\n"); 
+        return; 
+    } 
+  
+    if (numArticles >= MAX_ARTICLES) { 
+        printf("Maximum number of articles reached.\n"); 
+        return; 
+    } 
+  
+    Article newArticle; 
+    strcpy_s(newArticle.title, sizeof(newArticle.title), title); 
+    strcpy_s(newArticle.content, sizeof(newArticle.content), content); 
+  
+    articles[numArticles] = newArticle; 
+    numArticles++; 
+  
+    printf("Article added successfully.\n"); 
+} 
