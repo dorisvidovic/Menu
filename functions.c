@@ -10,16 +10,16 @@ int numCategories;
 
 void printMenu() {
     printf("Dobar dan, izvolite\n");
-    printf("1. Dodaj stavku\n");
-    printf("2. Izbaci stavku\n");
-    printf("3. Ispisi sadrzaj narudzbe\n");
-    printf("4. Ispisi ukupan iznos\n");
-    printf("5. Ispisi broj stavki\n");
-    printf("6. Obrisi narudzbu\n");
-    printf("7. Promijeni naziv stavke\n");
-    printf("8. Promijeni opis stavke\n");
-    printf("9. Promijeni cijenu stavke\n");
-    printf("10. Prikazi racun\n");
+printf("1. Menu\n");
+printf("2. Dodaj stavku\n");
+printf("3. Izbrisi stavku\n");
+printf("4. Pregled narudzbe\n");
+printf("5. Sortiraj narudzbu\n");
+printf("6. Spremi u tekstualnu datoteku\n");
+printf("7. Spremi u binarnu datoteku\n");
+printf ("8. Ucitaj iz tekstualne datoteke\n") ;
+printf("9. Ucitaj iz binarne datoteke\n");
+printf("10. Prikazi racun\n");
     printf("11. Izlaz\n");
 }
 
@@ -86,7 +86,7 @@ void saveOrderToFileText(Drink* order, int numItems) {
     }
 
     fclose(file);
-    printf("Narudûba je spremljena u datoteku (Tekst).\n");
+    printf("Narud≈æba je spremljena u datoteku (Tekst).\n");
 }
 
 void saveOrderToFileBinary(Drink* order, int numItems) {
@@ -104,7 +104,7 @@ void saveOrderToFileBinary(Drink* order, int numItems) {
     }
 
     fclose(file);
-    printf("Narudûba je spremljena u datoteku (Binarno).\n");
+    printf("Narud≈æba je spremljena u datoteku (Binarno).\n");
 }
 
 
